@@ -1,0 +1,30 @@
+{
+  "rust-quality-gate": {
+    "PostToolUse": [
+      {
+        "matcher": "write_file|edit_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/check-rust.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  },
+  "frontend-quality-gate": {
+    "PostToolUse": [
+      {
+        "matcher": "write_file|edit_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/check-frontend.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
