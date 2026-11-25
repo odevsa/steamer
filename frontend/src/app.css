@@ -7,6 +7,7 @@
   --border-subtle: #E2E8F0;
   --text-primary: #0F172A;
   --text-secondary: #475569;
+  --text-on-accent: #FFFFFF;
   --accent-primary: #2563EB;
   --accent-hover: #1D4ED8;
   --status-discount-bg: #DCFCE7;
@@ -24,6 +25,7 @@
   --border-subtle: #243044;
   --text-primary: #F1F5F9;
   --text-secondary: #94A3B8;
+  --text-on-accent: #FFFFFF;
   --accent-primary: #3B82F6;
   --accent-hover: #60A5FA;
   --status-discount-bg: #14532D;
@@ -41,6 +43,7 @@
   --color-border-subtle: var(--border-subtle);
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
+  --color-on-accent: var(--text-on-accent);
   --color-accent: var(--accent-primary);
   --color-accent-hover: var(--accent-hover);
   --color-discount-bg: var(--status-discount-bg);
