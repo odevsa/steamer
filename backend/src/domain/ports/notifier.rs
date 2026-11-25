@@ -12,3 +12,12 @@ pub trait Notifier: Send + Sync {
         alert: &PriceAlertPayload,
     ) -> Result<(), DomainError>;
 }
+
+#[async_trait]
+pub trait AlertDispatcher: Send + Sync {
+    async fn dispatch(
+        &self,
+        config: &ChannelConfig,
+        alert: &PriceAlertPayload,
+    ) -> Result<(), DomainError>;
+}

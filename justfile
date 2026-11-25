@@ -17,6 +17,27 @@ check-frontend:
         npm --prefix frontend run check && npm --prefix frontend run lint; \
     fi
 
+dev:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    pids=()
+    cleanup() {
+        for pid in "${pids[@]:-}"; do
+            kill "$pid" 2>/dev/null || true
+        done
+        wait 2>/dev/null || true
+    }
+    trap cleanup EXIT INT TERM
+    cargo run --manifest-path backend/Cargo.toml &
+    pids+=($!)
+    if command -v pnpm >/dev/null 2>&1; then
+        pnpm --dir frontend dev &
+    else
+        npm --prefix frontend run dev &
+    fi
+    pids+=($!)
+    wait -n
+
 dev-backend:
     cargo run --manifest-path backend/Cargo.toml
 

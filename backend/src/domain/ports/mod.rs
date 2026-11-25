@@ -8,7 +8,7 @@ pub mod watchlist_repository;
 
 pub use alert_log_repository::AlertLogRepository;
 pub use channel_repository::ChannelRepository;
-pub use notifier::Notifier;
+pub use notifier::{AlertDispatcher, Notifier};
 pub use security::{SecretCipher, UrlValidator};
 pub use settings_repository::SettingsRepository;
 pub use steam_gateway::SteamGateway;
