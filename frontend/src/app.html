@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem('steamer-theme') || 'system';
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const isDark = saved === 'dark' || (saved === 'system' && prefersDark);
+          document.documentElement.classList.toggle('dark', isDark);
+        } catch {}
+      })();
+    </script>
+    %sveltekit.head%
+  </head>
+  <body class="min-h-screen antialiased">
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
+</html>

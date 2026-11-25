@@ -1,0 +1,13 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "app_name": "Steamer",
+  "app_tagline": "Monitor de preços Steam self-hosted",
+  "nav_watchlist": "Watchlist",
+  "nav_alerts": "Alertas",
+  "nav_settings": "Configurações",
+  "action_add_game": "Adicionar Jogo",
+  "action_check_prices": "Verificar Preços",
+  "theme_light": "Claro",
+  "theme_dark": "Escuro",
+  "theme_system": "Sistema"
+}

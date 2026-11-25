@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+:root {
+  --bg-canvas: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #F1F5F9;
+  --border-subtle: #E2E8F0;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --accent-primary: #2563EB;
+  --accent-hover: #1D4ED8;
+  --status-discount-bg: #DCFCE7;
+  --status-discount-fg: #15803D;
+  --status-warning-bg: #FEF3C7;
+  --status-warning-fg: #B45309;
+  --status-danger-bg: #FEE2E2;
+  --status-danger-fg: #B91C1C;
+}
+
+.dark {
+  --bg-canvas: #0B0F17;
+  --bg-surface: #131A26;
+  --bg-surface-elevated: #1C2536;
+  --border-subtle: #243044;
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --accent-primary: #3B82F6;
+  --accent-hover: #60A5FA;
+  --status-discount-bg: #14532D;
+  --status-discount-fg: #4ADE80;
+  --status-warning-bg: #451A03;
+  --status-warning-fg: #FBBF24;
+  --status-danger-bg: #450A0A;
+  --status-danger-fg: #F87171;
+}
+
+@theme {
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-surface-elevated: var(--bg-surface-elevated);
+  --color-border-subtle: var(--border-subtle);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent: var(--accent-primary);
+  --color-accent-hover: var(--accent-hover);
+  --color-discount-bg: var(--status-discount-bg);
+  --color-discount-fg: var(--status-discount-fg);
+  --color-warning-bg: var(--status-warning-bg);
+  --color-warning-fg: var(--status-warning-fg);
+  --color-danger-bg: var(--status-danger-bg);
+  --color-danger-fg: var(--status-danger-fg);
+}
+
+html,
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+}
