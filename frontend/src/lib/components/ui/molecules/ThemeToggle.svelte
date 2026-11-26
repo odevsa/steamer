@@ -1,30 +1,27 @@
 <script lang="ts">
   import { Monitor, Moon, Sun } from 'lucide-svelte';
   import * as m from '$lib/paraglide/messages';
-  import { themeStore } from '$lib/stores/theme.svelte';
-  import Button from '../atoms/Button.svelte';
-  import Icon from '../atoms/Icon.svelte';
+  import { themeStore, type ThemeMode } from '$lib/stores/theme.svelte';
+  import OptionPopover, { type PopoverOption } from './OptionPopover.svelte';
 
-  const currentLabel = $derived(
-    themeStore.mode === 'light'
-      ? m.theme_light()
-      : themeStore.mode === 'dark'
-        ? m.theme_dark()
-        : m.theme_system()
-  );
+  const options: PopoverOption<ThemeMode>[] = $derived([
+    { value: 'light', label: m.theme_light(), icon: Sun },
+    { value: 'dark', label: m.theme_dark(), icon: Moon },
+    { value: 'system', label: m.theme_system(), icon: Monitor }
+  ]);
 
-  const currentIcon = $derived(
-    themeStore.mode === 'light' ? Sun : themeStore.mode === 'dark' ? Moon : Monitor
+  const currentOption = $derived(
+    options.find((option) => option.value === themeStore.mode) ?? options[2]
   );
 </script>
 
-<Button
-  variant="ghost"
-  size="sm"
-  onclick={() => themeStore.cycle()}
-  aria-label={`${m.theme_label()}: ${currentLabel}`}
-  title={`${m.theme_label()}: ${currentLabel}`}
->
-  <Icon icon={currentIcon} size={16} />
-  <span class="hidden sm:inline">{currentLabel}</span>
-</Button>
+<OptionPopover
+  {options}
+  value={themeStore.mode}
+  onSelect={(mode) => themeStore.set(mode)}
+  triggerIcon={currentOption.icon ?? Monitor}
+  triggerLabel={currentOption.label}
+  hideLabelOnMobile
+  ariaLabel={`${m.theme_label()}: ${currentOption.label}`}
+  title={m.theme_label()}
+/>

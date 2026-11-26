@@ -2,24 +2,22 @@
   import { Languages } from 'lucide-svelte';
   import * as m from '$lib/paraglide/messages';
   import { localeStore, type SupportedLocale } from '$lib/stores/locale.svelte';
-  import Button from '../atoms/Button.svelte';
-  import Icon from '../atoms/Icon.svelte';
+  import OptionPopover, { type PopoverOption } from './OptionPopover.svelte';
 
-  function toggleLocale(): void {
-    const next: SupportedLocale = localeStore.current === 'en' ? 'pt-br' : 'en';
-    localeStore.set(next);
-  }
+  const options: PopoverOption<SupportedLocale>[] = $derived([
+    { value: 'en', label: m.locale_en() },
+    { value: 'pt-br', label: m.locale_pt_br() }
+  ]);
 
-  const label = $derived(localeStore.current === 'pt-br' ? 'PT-BR' : 'EN');
+  const shortLabel = $derived(localeStore.current === 'pt-br' ? 'PT-BR' : 'EN');
 </script>
 
-<Button
-  variant="ghost"
-  size="sm"
-  onclick={toggleLocale}
-  aria-label={`${m.locale_label()}: ${label}`}
+<OptionPopover
+  {options}
+  value={localeStore.current}
+  onSelect={(locale) => localeStore.set(locale)}
+  triggerIcon={Languages}
+  triggerLabel={shortLabel}
+  ariaLabel={`${m.locale_label()}: ${shortLabel}`}
   title={m.locale_label()}
->
-  <Icon icon={Languages} size={16} />
-  <span>{label}</span>
-</Button>
+/>
