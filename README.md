@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/logo.svg" width="96" height="96" alt="Steamer logo" />
+
 # Steamer
 
 **Self-hosted Steam price tracker & deal alerter built with Rust and Svelte.**

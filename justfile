@@ -5,6 +5,9 @@ default:
 
 check: check-backend check-frontend
 
+assets:
+    ./assets/generate-assets.sh
+
 check-backend:
     cargo fmt --manifest-path backend/Cargo.toml --check
     cargo clippy --manifest-path backend/Cargo.toml --all-targets -- -D warnings

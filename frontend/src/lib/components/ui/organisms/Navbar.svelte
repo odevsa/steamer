@@ -1,8 +1,9 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import { Bell, Gamepad2, Settings, Tag } from 'lucide-svelte';
+  import { Bell, Settings, Tag } from 'lucide-svelte';
   import * as m from '$lib/paraglide/messages';
   import { versionStore } from '$lib/stores/version.svelte';
+  import BrandLogo from '../atoms/BrandLogo.svelte';
   import Icon from '../atoms/Icon.svelte';
   import LocaleSwitcher from '../molecules/LocaleSwitcher.svelte';
   import ThemeToggle from '../molecules/ThemeToggle.svelte';
@@ -18,11 +19,7 @@
   <div class="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
     <div class="flex items-center gap-6">
       <a href="/" class="flex items-center gap-2 text-text-primary">
-        <div
-          class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-on-accent"
-        >
-          <Icon icon={Gamepad2} size={18} />
-        </div>
+        <BrandLogo class="h-8 w-8" label={m.app_name()} />
         <span class="text-base font-bold tracking-tight">{m.app_name()}</span>
         <span
           class="hidden rounded-md border border-border-subtle bg-surface-elevated px-1.5 py-0.5 font-mono text-[11px] font-medium text-text-secondary sm:inline-block"

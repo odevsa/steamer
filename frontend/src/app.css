@@ -16,6 +16,7 @@
   --status-warning-fg: #B45309;
   --status-danger-bg: #FEE2E2;
   --status-danger-fg: #B91C1C;
+  --brand-accent: #22C55E;
 }
 
 .dark {
@@ -52,6 +53,7 @@
   --color-warning-fg: var(--status-warning-fg);
   --color-danger-bg: var(--status-danger-bg);
   --color-danger-fg: var(--status-danger-fg);
+  --color-brand-accent: var(--brand-accent);
 }
 
 html,
