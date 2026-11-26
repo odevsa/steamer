@@ -40,21 +40,23 @@ Steamer monitors Steam Store prices for games on your watchlist and sends instan
 ```yaml
 services:
   steamer:
-    image: odevsa/steamer:latest
+    image: docker.io/odevsa/steamer:latest
     container_name: steamer
     restart: unless-stopped
     ports:
       - "8080:8080"
     environment:
-      - HOST=0.0.0.0
       - PORT=8080
+      - HOST=0.0.0.0
       - DATA_DIR=/app/data
     volumes:
-      - ./data:/app/data
+      - ./.steamer/data:/app/data
 ```
 
+Or build locally with the included [docker-compose.yml](docker-compose.yml):
+
 ```bash
-docker compose up -d
+docker compose up -d --build
 ```
 
 Open `http://localhost:8080`.

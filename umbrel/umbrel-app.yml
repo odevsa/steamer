@@ -1,0 +1,23 @@
+manifestVersion: 1
+id: steamer
+category: utilities
+name: Steamer
+version: "0.1.0"
+tagline: Self-hosted Steam price tracker and deal alerter
+description: >-
+  Steamer monitors Steam Store prices for games on your watchlist and sends
+  instant notifications via Discord, Telegram, ntfy, or JSON webhooks when a
+  game drops to or below your target price or goes on sale.
+developer: odevsa
+website: https://github.com/odevsa/steamer
+dependencies: []
+repo: https://github.com/odevsa/steamer
+support: https://github.com/odevsa/steamer/issues
+port: 8080
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+releaseNotes: Initial release with Steam price tracking, alert deduplication, encrypted channel credentials, and multi-language UI.
+submitter: odevsa
+submission: https://github.com/odevsa/steamer

@@ -2,6 +2,7 @@
   import { page } from '$app/state';
   import { Bell, Gamepad2, Settings, Tag } from 'lucide-svelte';
   import * as m from '$lib/paraglide/messages';
+  import { versionStore } from '$lib/stores/version.svelte';
   import Icon from '../atoms/Icon.svelte';
   import LocaleSwitcher from '../molecules/LocaleSwitcher.svelte';
   import ThemeToggle from '../molecules/ThemeToggle.svelte';
@@ -23,6 +24,11 @@
           <Icon icon={Gamepad2} size={18} />
         </div>
         <span class="text-base font-bold tracking-tight">{m.app_name()}</span>
+        <span
+          class="hidden rounded-md border border-border-subtle bg-surface-elevated px-1.5 py-0.5 font-mono text-[11px] font-medium text-text-secondary sm:inline-block"
+        >
+          v{versionStore.current}
+        </span>
       </a>
 
       <nav class="flex items-center gap-1">

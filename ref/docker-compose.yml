@@ -1,0 +1,21 @@
+services:
+  monolai:
+    # image: docker.io/odevsa/monolai:latest
+    image: monolai
+    build:
+      context: .
+      dockerfile: docker
+    container_name: monolai
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - HOST=0.0.0.0
+      - MODELS_DIR=/app/models
+      - RUNTIMES_DIR=/app/runtimes
+      - DATA_DIR=/app/data
+    volumes:
+      - ./.monolai/models:/app/models
+      - ./.monolai/runtimes:/app/runtimes
+      - ./.monolai/data:/app/data

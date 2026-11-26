@@ -50,4 +50,6 @@ dev-frontend:
 
 version ver:
     sed -i -E 's/^version = "[^"]+"/version = "{{ver}}"/' backend/Cargo.toml
+    sed -i -E 's/^version: "[^"]+"/version: "{{ver}}"/' umbrel/umbrel-app.yml
+    sed -i -E 's|(image: odevsa/steamer:)[^[:space:]]+|\1{{ver}}|' umbrel/docker-compose.yml
     node -e 'const fs = require("fs"); const p = "frontend/package.json"; const pkg = JSON.parse(fs.readFileSync(p, "utf8")); pkg.version = "{{ver}}"; fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + "\n");'

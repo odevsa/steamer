@@ -37,7 +37,8 @@ steamer/
 │       │   └── security/               # AesGcmCipher, SsrfGuard
 │       └── presentation/
 │           ├── mod.rs
-│           ├── router.rs               # Axum router + security headers + static SPA fallback
+│           ├── router.rs               # Axum router + security headers + embedded SPA fallback
+│           ├── embedded_assets.rs      # rust-embed SPA asset serving
 │           ├── handlers/               # Thin HTTP handlers delegating to use cases
 │           ├── dto/                    # Request/Response structs + validation
 │           └── error_mapper.rs         # Maps DomainError -> safe HTTP status & JSON error

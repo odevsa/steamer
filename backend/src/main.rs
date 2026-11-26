@@ -81,7 +81,7 @@ async fn main() {
         worker.run_loop(shutdown_rx).await;
     });
 
-    let app = build_router(state, Some(&config.frontend_dir));
+    let app = build_router(state);
     let bind_addr = config.bind_addr();
     let listener = tokio::net::TcpListener::bind(&bind_addr)
         .await

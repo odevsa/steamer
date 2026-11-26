@@ -15,4 +15,5 @@ pub struct ErrorBody {
 pub struct HealthResponse {
     pub status: &'static str,
     pub database: &'static str,
+    pub version: &'static str,
 }

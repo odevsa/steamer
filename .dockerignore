@@ -1,0 +1,16 @@
+.git
+.github
+.agents
+.githooks
+data
+target
+backend/target
+frontend/node_modules
+frontend/.svelte-kit
+frontend/build
+frontend/src/lib/paraglide
+*.db
+*.db-shm
+*.db-wal
+master.key
+.env

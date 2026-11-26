@@ -1,18 +1,16 @@
-use std::path::Path;
-
 use axum::http::{HeaderName, HeaderValue};
 use axum::routing::{get, patch, post};
 use axum::Router;
-use tower_http::services::{ServeDir, ServeFile};
 use tower_http::set_header::SetResponseHeaderLayer;
 use tower_http::trace::TraceLayer;
 
+use crate::presentation::embedded_assets::serve_embedded_spa;
 use crate::presentation::handlers::{alerts, channels, health, settings, steam, watchlist};
 use crate::presentation::state::AppState;
 
 const CONTENT_SECURITY_POLICY: &str = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://shared.akamai.steamstatic.com https://cdn.akamai.steamstatic.com https://store.steampowered.com; connect-src 'self'; frame-ancestors 'self'";
 
-pub fn build_router(state: AppState, frontend_dir: Option<&Path>) -> Router {
+pub fn build_router(state: AppState) -> Router {
     let api = Router::new()
         .route("/health", get(health::health_check))
         .route("/steam/search", get(steam::search_steam_games))
@@ -44,17 +42,11 @@ pub fn build_router(state: AppState, frontend_dir: Option<&Path>) -> Router {
             get(settings::get_settings).patch(settings::update_settings),
         );
 
-    let mut app = Router::new().nest("/api/v1", api).with_state(state);
-
-    if let Some(dir) = frontend_dir {
-        if dir.exists() {
-            let index_path = dir.join("index.html");
-            let serve_dir = ServeDir::new(dir).fallback(ServeFile::new(index_path));
-            app = app.fallback_service(serve_dir);
-        }
-    }
-
-    app.layer(TraceLayer::new_for_http())
+    Router::new()
+        .nest("/api/v1", api)
+        .with_state(state)
+        .fallback(serve_embedded_spa)
+        .layer(TraceLayer::new_for_http())
         .layer(SetResponseHeaderLayer::overriding(
             HeaderName::from_static("x-content-type-options"),
             HeaderValue::from_static("nosniff"),
@@ -168,7 +160,7 @@ mod tests {
 
     #[tokio::test]
     async fn health_endpoint_returns_ok_and_security_headers() {
-        let app = build_router(test_state().await, None);
+        let app = build_router(test_state().await);
         let response = app
             .oneshot(
                 Request::builder()
@@ -195,12 +187,15 @@ mod tests {
             Some("SAMEORIGIN")
         );
         assert!(response.headers().contains_key("content-security-policy"));
+        let body = to_bytes(response.into_body(), 16_384).await.expect("bytes");
+        let text = String::from_utf8(body.to_vec()).expect("utf8");
+        assert!(text.contains(env!("CARGO_PKG_VERSION")));
     }
 
     #[tokio::test]
     async fn channels_mask_secrets_and_block_ssrf_urls() {
         let state = test_state().await;
-        let app = build_router(state, None);
+        let app = build_router(state);
 
         let blocked_resp = app
             .clone()
@@ -239,5 +234,20 @@ mod tests {
         let text = String::from_utf8(body.to_vec()).expect("utf8");
         assert!(!text.contains("secret9999"));
         assert!(text.contains("••••9999"));
+    }
+
+    #[tokio::test]
+    async fn api_unknown_route_returns_404_instead_of_spa_fallback() {
+        let app = build_router(test_state().await);
+        let response = app
+            .oneshot(
+                Request::builder()
+                    .uri("/api/v1/unknown-endpoint")
+                    .body(Body::empty())
+                    .expect("request"),
+            )
+            .await
+            .expect("response");
+        assert_eq!(response.status(), StatusCode::NOT_FOUND);
     }
 }

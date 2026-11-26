@@ -3,8 +3,8 @@
 ## 1. Multi-Stage Dockerfile (`docker/Dockerfile`)
 
 - **Stage 1 (`frontend-builder`)**: `node:22-alpine` + `pnpm`, installs frontend dependencies and builds static SPA (`frontend/build`).
-- **Stage 2 (`backend-builder`)**: `rust:1.83-bookworm` (or `cargo-chef` for dependency caching), compiles `backend/` in `--release` mode.
-- **Stage 3 (`runtime`)**: `debian:bookworm-slim` (with `ca-certificates` for TLS to Steam/Telegram/Discord), non-root user `steamer` (`UID 1000`), copies compiled binary + `frontend/build` static assets.
+- **Stage 2 (`backend-builder`)**: `rust:1-bookworm`, copies `frontend/build` and compiles `backend/` in `--release` mode embedding the static SPA into the binary via `rust-embed`.
+- **Stage 3 (`runtime`)**: `debian:bookworm-slim` (with `ca-certificates` and `curl` for TLS and healthcheck), non-root user `steamer` (`UID 1000`), copies only the single compiled `steamer` binary.
 - **Data Volume**: `/app/data` owned by `steamer` for SQLite DB (`steamer.db`) and auto-generated master key (`master.key`).
 - **Healthcheck**: `curl` or lightweight binary flag / TCP check on `http://127.0.0.1:8080/api/v1/health`.
 

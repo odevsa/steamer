@@ -9,7 +9,6 @@ pub struct AppConfig {
     pub host: String,
     pub port: u16,
     pub data_dir: PathBuf,
-    pub frontend_dir: PathBuf,
     pub master_key: Option<String>,
     pub default_poll_interval_secs: u64,
     pub allow_http_webhooks: bool,
@@ -26,9 +25,6 @@ impl AppConfig {
         let data_dir = env::var("DATA_DIR")
             .map(PathBuf::from)
             .unwrap_or_else(|_| PathBuf::from("./data"));
-        let frontend_dir = env::var("FRONTEND_DIR")
-            .map(PathBuf::from)
-            .unwrap_or_else(|_| PathBuf::from("./frontend/build"));
         let master_key = env::var("STEAMER_MASTER_KEY")
             .ok()
             .filter(|v| !v.trim().is_empty());
@@ -48,7 +44,6 @@ impl AppConfig {
             host,
             port,
             data_dir,
-            frontend_dir,
             master_key,
             default_poll_interval_secs,
             allow_http_webhooks,

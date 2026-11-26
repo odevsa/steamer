@@ -6,12 +6,14 @@
   import { localStorageKey } from '$lib/paraglide/runtime';
   import { localeStore } from '$lib/stores/locale.svelte';
   import { themeStore } from '$lib/stores/theme.svelte';
+  import { versionStore } from '$lib/stores/version.svelte';
 
   let { children }: { children: Snippet } = $props();
 
   onMount(() => {
     themeStore.init();
     localeStore.init();
+    versionStore.refresh();
 
     const hasLocalLocale = Boolean(localStorage.getItem(localStorageKey));
     if (!hasLocalLocale) {

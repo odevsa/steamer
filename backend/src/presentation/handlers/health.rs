@@ -15,5 +15,6 @@ pub async fn health_check(State(state): State<AppState>) -> Result<Json<HealthRe
     Ok(Json(HealthResponse {
         status: "ok",
         database: "ok",
+        version: env!("CARGO_PKG_VERSION"),
     }))
 }

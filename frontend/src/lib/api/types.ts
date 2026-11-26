@@ -93,6 +93,12 @@ export interface SettingsResponse extends SettingsFields {
   detected_defaults: SettingsFields;
 }
 
+export interface HealthResponse {
+  status: string;
+  database: string;
+  version: string;
+}
+
 export interface ApiErrorEnvelope {
   error: {
     code: string;

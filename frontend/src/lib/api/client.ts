@@ -3,6 +3,7 @@ import type {
   ApiErrorEnvelope,
   ChannelConfigInput,
   GameSearchItem,
+  HealthResponse,
   NotificationChannel,
   PriceHistoryPoint,
   SettingsResponse,
@@ -50,6 +51,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const apiClient = {
+  health(): Promise<HealthResponse> {
+    return request<HealthResponse>('/api/v1/health');
+  },
+
   searchGames(query: string): Promise<GameSearchItem[]> {
     const params = new URLSearchParams({ q: query });
     return request<GameSearchItem[]>(`/api/v1/steam/search?${params.toString()}`);

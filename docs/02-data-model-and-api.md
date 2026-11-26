@@ -84,7 +84,7 @@ All endpoints return JSON. Errors use a uniform envelope: `{ "error": { "code": 
 
 | Method | Path | Purpose |
 | :--- | :--- | :--- |
-| `GET` | `/api/v1/health` | Liveness & DB connectivity check |
+| `GET` | `/api/v1/health` | Liveness, DB connectivity & release version (`version`) |
 | `GET` | `/api/v1/steam/search?q=...` | Search Steam Store using active `country_code` |
 | `GET` | `/api/v1/watchlist` | List tracked games + current prices |
 | `POST` | `/api/v1/watchlist` | Add game (`app_id`, optional `target_price_cents`) |
